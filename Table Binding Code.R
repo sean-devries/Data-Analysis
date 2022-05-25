@@ -106,48 +106,49 @@ library(dplyr)
   t2$Year_of_Clinical_Publication <- NA
   t3$Summary_of_Evidence <- NA
   t3$Comments <- NA
+  t3$Susceptibility_Method_for_Clinical_Isolates <- NA
   
   
   t1_b <- t1 %>%
             select(original_table, row_num, `NCBI Accession Number`, `Amino Acid Sequence`, 
                    `Accession Number Has Linked Publication`, `MIC Value for Clinical Isolate`, 
                    `Clinical Evidence Source (URL)`, `Year of Clinical Publication`, 
-                   `Summary of Evidence`, Comments, "Gene_Function")
+                   `Summary of Evidence`, Comments, "Gene_Function", `Susceptibility Method for Clinical Isolate(s)`)
   colnames(t1_b) <- c("original_table", "row_num", "NCBI_Accession_Number", "Amino_Acid_Sequence", 
                       "Accession_Number_Has_Linked_Publication", "MIC_Value_for_Clinical_Isolate", 
                       "Clinical_Evidence_Source_URL", "Year_of_Clinical_Publication", 
-                      "Summary_of_Evidence", "Comments", "Gene_Function")
+                      "Summary_of_Evidence", "Comments", "Gene_Function", "Susceptibility_Method_for_Clinical_Isolates")
   
   
   t2_b <- t2 %>%
     select(original_table, row_num, NCBI_Accession_Number, Amino_Acid_Sequence, 
            Accession_Number_Has_Linked_Publication, MIC_Value_for_Clinical_Isolate, 
            Sources, Year_of_Clinical_Publication, 
-           `Causative evidence`, `Notes:`, `Gene Function`)
+           `Causative evidence`, `Notes:`, `Gene Function`, `Method for MIC values`)
   colnames(t2_b) <- c("original_table", "row_num", "NCBI_Accession_Number", "Amino_Acid_Sequence", 
                       "Accession_Number_Has_Linked_Publication", "MIC_Value_for_Clinical_Isolate", 
                       "Clinical_Evidence_Source_URL", "Year_of_Clinical_Publication", 
-                      "Summary_of_Evidence", "Comments", "Gene_Function")
+                      "Summary_of_Evidence", "Comments", "Gene_Function", "Susceptibility_Method_for_Clinical_Isolates")
   
   t3_b <- t3 %>%
     select(original_table, row_num, `NCBI Accession Number`, Sequence, 
            `Has Linked Publication`, MIC_Value_for_Clinical_Isolate, 
            Sources, `Publication Year`, 
-           Summary_of_Evidence, Comments, `Gene Function`)
+           Summary_of_Evidence, Comments, `Gene Function`, Susceptibility_Method_for_Clinical_Isolates)
   colnames(t3_b) <- c("original_table", "row_num", "NCBI_Accession_Number", "Amino_Acid_Sequence", 
                       "Accession_Number_Has_Linked_Publication", "MIC_Value_for_Clinical_Isolate", 
                       "Clinical_Evidence_Source_URL", "Year_of_Clinical_Publication", 
-                      "Summary_of_Evidence", "Comments", "Gene_Function")
+                      "Summary_of_Evidence", "Comments", "Gene_Function", "Susceptibility_Method_for_Clinical_Isolates")
 
   t4_b <- t4 %>%
     select(original_table, row_num, `NCBI Accession Number - Nucleotid`, `Amino Acid Sequence`, 
            `NCBI Accession Number Has Linked Publication`, `MIC of evidence isolate`, 
            Sources, `Evidence publication year`, 
-           `Summary of Evidence`, `Comments/notes`, `Gene Function`)
+           `Summary of Evidence`, `Comments/notes`, `Gene Function`, `Susceptibility testing method for experimental confirmation isolate`)
   colnames(t4_b) <- c("original_table", "row_num", "NCBI_Accession_Number", "Amino_Acid_Sequence", 
                       "Accession_Number_Has_Linked_Publication", "MIC_Value_for_Clinical_Isolate", 
                       "Clinical_Evidence_Source_URL", "Year_of_Clinical_Publication", 
-                      "Summary_of_Evidence", "Comments", "Gene_Function")  
+                      "Summary_of_Evidence", "Comments", "Gene_Function", "Susceptibility_Method_for_Clinical_Isolates")  
 
   ft_2 <- rbind(t1_b, t2_b, t3_b, t4_b)  
   
@@ -159,7 +160,8 @@ library(dplyr)
   
   
 #Do all the variables that are present in just 2 of the datasets
-  t1$Method_for_MIC_Values <- NA
+  
+  #t1$Method_for_MIC_Values <- NA
   t1$Mutation<- NA
   t1$Type_of_Genetic_Marker<- NA
   t1$Additional_Information<- NA
@@ -173,22 +175,25 @@ library(dplyr)
             select(original_table, row_num,`NCBI Accession Number Species`, 
                    `NCBI Submitted Sequence - Isolate Source`, `NCBI Submitted Sequence - Isolate ID Method`, `Geographic Location of Submitted Sequence Isolate`,
                    `Clinical Evidence in >10 Isolates`, `Clinical Evidence Is Affiliated with Accession #`, `Breakpoint Organization`,
-                   `Susceptibility Method for Clinical Isolate(s)`, `Transformation Experiment Performed`, `Transformation Is Affiliated with Accession #`,
+                   `Transformation Experiment Performed`, `Transformation Is Affiliated with Accession #`,
                    `Transformation Experiment Source (URL)`, `Transformant Species`, `MIC Value for Transformant`,
                    `Fold Change in Transformant`, `MIC Interpretation for Transformant`, `Hydrolysis Is Associated with Accession #`,
-                   `Hydrolysis Results`, "Method_for_MIC_Values", "Mutation", 
+                   `Hydrolysis Results`, "Mutation", 
                    "Type_of_Genetic_Marker", "Additional_Information", "SCCmec_Element",
-                   "Aliases", "Resistant_Mechanism", Gene_promotor_mutation, Gene_Promotor_NT_Substitution
+                   "Aliases", "Resistant_Mechanism", Gene_promotor_mutation, Gene_Promotor_NT_Substitution,
+                   `Gene Has Multiple Species Entries?`, `Susceptibility Method for Transformant`
                    )
   colnames(t1_c) <- c("original_table", "row_num","NCBI_Accession_Number_Species", 
                       "NCBI_Submitted_Sequence_Isolate_Source", "NCBI_Submitted_Sequence_Isolate_ID_Method", "Geographic_Location_of_Submitted_Sequence_Isolate",
                       "Clinical_Evidence_in_over_10_Isolates", "Clinical_Evidence_Is_Affiliated_with_Accession_Number", "Breakpoint_Organization",
-                      "Susceptibility_Method_for_Clinical_Isolates", "Transformation_Experiment_Performed", "Transformation_Is_Affiliated_with_Accession_Number",
+                      "Transformation_Experiment_Performed", "Transformation_Is_Affiliated_with_Accession_Number",
                       "Transformation_Experiment_Source_URL", "Transformant_Species", "MIC_Value_for_Transformant",
                       "Fold_Change_in_Transformant", "MIC_Interpretation_for_Tranformant", "Hydrolysis_Is_Associated_with_Accession_Number",
-                      "Hydrolysis_Results", "Method_for_MIC_Values", "Mutation", 
+                      "Hydrolysis_Results", "Mutation", 
                       "Type_of_Genetic_Marker", "Additional_Information", "SCCmec_Element",
-                      "Aliases", "Resistant_Mechanism", "Gene_promotor_mutation", "Gene_Promotor_NT_Substitution")
+                      "Aliases", "Resistant_Mechanism", "Gene_promotor_mutation", "Gene_Promotor_NT_Substitution",
+                      "Gene_Has_Multiple_Species_Entries", "Susceptibility_Method_for_evidence_associated_isolate"
+                      )
   
   
   t2$Transformation_Experiment_Source_URL <- NA
@@ -199,7 +204,6 @@ library(dplyr)
   t2$Breakpoint_Organization<- NA
   t2$Geographic_Location_of_Submitted_Sequence_Isolate<- NA
   t2$Transformation_Experiment_Performed<- NA
-  t2$Susceptibility_Method_for_Clinical_Isolates<- NA
   t2$Clinical_Evidence_Is_Affiliated_with_Accession_Number<- NA
   t2$Clinical_Evidence_in_over_10_Isolates<- NA
   t2$NCBI_Submitted_Sequence_Isolate_ID_Method<- NA
@@ -211,28 +215,33 @@ library(dplyr)
   t2$SCCmec_Element <- NA
   t2$Aliases <- NA
   t2$Resistant_Mechanism <- NA
+  t2$Gene_Has_Multiple_Species_Entries <- NA
+  t2$Susceptibility_Method_for_evidence_associated_isolate <- NA
     
   
   t2_c <- t2 %>%
     select(original_table, row_num, NCBI_Accession_Number_Species, 
            NCBI_Submitted_Sequence_Isolate_Source, NCBI_Submitted_Sequence_Isolate_ID_Method, Geographic_Location_of_Submitted_Sequence_Isolate,
            Clinical_Evidence_in_over_10_Isolates, Clinical_Evidence_Is_Affiliated_with_Accession_Number, Breakpoint_Organization,
-           Susceptibility_Method_for_Clinical_Isolates, Transformation_Experiment_Performed, Transformation_Is_Affiliated_with_Accession_Number,
+           Transformation_Experiment_Performed, Transformation_Is_Affiliated_with_Accession_Number,
            Transformation_Experiment_Source_URL, Transformant_Species, MIC_Value_for_Transformant,
            Fold_Change_in_Transformant, MIC_Interpretation_for_Tranformant, Hydrolysis_Is_Associated_with_Accession_Number,
-           Hydrolysis_Results, `Method for MIC values`, Mutation, 
+           Hydrolysis_Results,  Mutation, 
            `Type of Genetic Marker`, `Additional information`, SCCmec_Element,
-           Aliases, Resistant_Mechanism, `Gene promoter mutation`, `Gene Promoter NT substitution`
+           Aliases, Resistant_Mechanism, `Gene promoter mutation`, `Gene Promoter NT substitution`,
+           Gene_Has_Multiple_Species_Entries, Susceptibility_Method_for_evidence_associated_isolate
     )
   colnames(t2_c) <- c("original_table", "row_num","NCBI_Accession_Number_Species", 
                          "NCBI_Submitted_Sequence_Isolate_Source", "NCBI_Submitted_Sequence_Isolate_ID_Method", "Geographic_Location_of_Submitted_Sequence_Isolate",
                          "Clinical_Evidence_in_over_10_Isolates", "Clinical_Evidence_Is_Affiliated_with_Accession_Number", "Breakpoint_Organization",
-                         "Susceptibility_Method_for_Clinical_Isolates", "Transformation_Experiment_Performed", "Transformation_Is_Affiliated_with_Accession_Number",
+                         "Transformation_Experiment_Performed", "Transformation_Is_Affiliated_with_Accession_Number",
                          "Transformation_Experiment_Source_URL", "Transformant_Species", "MIC_Value_for_Transformant",
                          "Fold_Change_in_Transformant", "MIC_Interpretation_for_Tranformant", "Hydrolysis_Is_Associated_with_Accession_Number",
-                         "Hydrolysis_Results", "Method_for_MIC_Values", "Mutation", 
+                         "Hydrolysis_Results", "Mutation", 
                          "Type_of_Genetic_Marker", "Additional_Information", "SCCmec_Element",
-                         "Aliases", "Resistant_Mechanism", "Gene_promotor_mutation", "Gene_Promotor_NT_Substitution")
+                         "Aliases", "Resistant_Mechanism", "Gene_promotor_mutation", "Gene_Promotor_NT_Substitution",
+                         "Gene_Has_Multiple_Species_Entries", "Susceptibility_Method_for_evidence_associated_isolate"
+                      )
   
   
   
@@ -249,38 +258,40 @@ library(dplyr)
   t3$Breakpoint_Organization<- NA
   t3$Geographic_Location_of_Submitted_Sequence_Isolate<- NA
   t3$Transformation_Experiment_Performed<- NA
-  t3$Susceptibility_Method_for_Clinical_Isolates<- NA
   t3$Clinical_Evidence_Is_Affiliated_with_Accession_Number<- NA
   t3$Clinical_Evidence_in_over_10_Isolates<- NA
   t3$Hydrolysis_Is_Associated_with_Accession_Number<- NA
   t3$Hydrolysis_Results<- NA
   t3$Transformation_Is_Affiliated_with_Accession_Number <- NA
-  t3$Method_for_MIC_Values <- NA
   t3$Additional_Information <- NA
   t3$Mutation <- NA
   t3$Gene_promotor_mutation <- NA
   t3$Gene_Promotor_NT_Substitution <- NA
+  t3$Gene_Has_Multiple_Species_Entries <- NA
+  t3$Susceptibility_Method_for_evidence_associated_isolate <- NA
   
   t3_c <- t3 %>%
     select(original_table, row_num, `NCBI Accession Number Species`, 
            NCBI_Submitted_Sequence_Isolate_Source, NCBI_Submitted_Sequence_Isolate_ID_Method, Geographic_Location_of_Submitted_Sequence_Isolate,
            Clinical_Evidence_in_over_10_Isolates, Clinical_Evidence_Is_Affiliated_with_Accession_Number, Breakpoint_Organization,
-           Susceptibility_Method_for_Clinical_Isolates, Transformation_Experiment_Performed, Transformation_Is_Affiliated_with_Accession_Number,
+           Transformation_Experiment_Performed, Transformation_Is_Affiliated_with_Accession_Number,
            Transformation_Experiment_Source_URL, Transformant_Species, MIC_Value_for_Transformant,
            Fold_Change_in_Transformant, MIC_Interpretation_for_Tranformant, Hydrolysis_Is_Associated_with_Accession_Number,
-           Hydrolysis_Results, Method_for_MIC_Values, Mutation, 
+           Hydrolysis_Results, Mutation, 
            `Type of Genetic Marker`, Additional_Information, `SCCmec element`,
-           Aliases, `Mechanism of Resistance`, Gene_promotor_mutation, Gene_Promotor_NT_Substitution
+           Aliases, `Mechanism of Resistance`, Gene_promotor_mutation, Gene_Promotor_NT_Substitution,
+           Gene_Has_Multiple_Species_Entries, Susceptibility_Method_for_evidence_associated_isolate
     )
   colnames(t3_c) <- c("original_table", "row_num","NCBI_Accession_Number_Species", 
                       "NCBI_Submitted_Sequence_Isolate_Source", "NCBI_Submitted_Sequence_Isolate_ID_Method", "Geographic_Location_of_Submitted_Sequence_Isolate",
                       "Clinical_Evidence_in_over_10_Isolates", "Clinical_Evidence_Is_Affiliated_with_Accession_Number", "Breakpoint_Organization",
-                      "Susceptibility_Method_for_Clinical_Isolates", "Transformation_Experiment_Performed", "Transformation_Is_Affiliated_with_Accession_Number",
+                      "Transformation_Experiment_Performed", "Transformation_Is_Affiliated_with_Accession_Number",
                       "Transformation_Experiment_Source_URL", "Transformant_Species", "MIC_Value_for_Transformant",
                       "Fold_Change_in_Transformant", "MIC_Interpretation_for_Tranformant", "Hydrolysis_Is_Associated_with_Accession_Number",
-                      "Hydrolysis_Results", "Method_for_MIC_Values", "Mutation", 
+                      "Hydrolysis_Results", "Mutation", 
                       "Type_of_Genetic_Marker", "Additional_Information", "SCCmec_Element",
-                      "Aliases", "Resistant_Mechanism", "Gene_promotor_mutation", "Gene_Promotor_NT_Substitution")
+                      "Aliases", "Resistant_Mechanism", "Gene_promotor_mutation", "Gene_Promotor_NT_Substitution",
+                      "Gene_Has_Multiple_Species_Entries", "Susceptibility_Method_for_evidence_associated_isolate")
   
   
   t4$NCBI_Accession_Number_Species <- NA
@@ -290,22 +301,24 @@ library(dplyr)
             select(original_table, row_num, NCBI_Accession_Number_Species,
                    `NCBI Submitted Sequence - Isolate Source`, `NCBI Submitted Sequence - Isolate ID Method`, `Geographic Location of evidence associated isolate`,
                    `Clinical Evidence in >10 Isolates`, `Clinical Evidence Is Affiliated with Accession #`, `Breakpoint Organization for interpretation for experimental confirmation`,
-                   `Susceptibility testing method for experimental confirmation isolate`, `Method to generate experimental confirmation`, `Accession number for experimental confirmation`,
+                   `Method to generate experimental confirmation`, `Accession number for experimental confirmation`,
                    `URL for level of evidence determination`, `Species of experimental confirmation isolate`, `MIC of experimental confirmation isolate`,
                    `MIC fold change for experimental confirmation`, `Interpretation for MIC of evidence associated isolate`, `Hydrolysis Is Associated with Accession #`,
-                   `Hydrolysis Results`, `Susceptibility testing method for evidence associated isolate`, Mutation,
+                   `Hydrolysis Results`, Mutation,
                    Type_of_Genetic_Marker, `Additional information`, `SCCmec element`, 
-                   `Gene name aliases`,`Resistant Mechanism`, `Gene promoter mutation`, `Gene Promoter NT substitution`
+                   `Gene name aliases`,`Resistant Mechanism`, `Gene promoter mutation`, `Gene Promoter NT substitution`,
+                   `Gene has multiple GenBank entries`, `Susceptibility testing method for evidence associated isolate`
                    )
   colnames(t4_c) <- c("original_table", "row_num","NCBI_Accession_Number_Species", 
                       "NCBI_Submitted_Sequence_Isolate_Source", "NCBI_Submitted_Sequence_Isolate_ID_Method", "Geographic_Location_of_Submitted_Sequence_Isolate",
                       "Clinical_Evidence_in_over_10_Isolates", "Clinical_Evidence_Is_Affiliated_with_Accession_Number", "Breakpoint_Organization",
-                      "Susceptibility_Method_for_Clinical_Isolates", "Transformation_Experiment_Performed", "Transformation_Is_Affiliated_with_Accession_Number",
+                      "Transformation_Experiment_Performed", "Transformation_Is_Affiliated_with_Accession_Number",
                       "Transformation_Experiment_Source_URL", "Transformant_Species", "MIC_Value_for_Transformant",
                       "Fold_Change_in_Transformant", "MIC_Interpretation_for_Tranformant", "Hydrolysis_Is_Associated_with_Accession_Number",
-                      "Hydrolysis_Results", "Method_for_MIC_Values", "Mutation", 
+                      "Hydrolysis_Results", "Mutation", 
                       "Type_of_Genetic_Marker", "Additional_Information", "SCCmec_Element",
-                      "Aliases", "Resistant_Mechanism", "Gene_promotor_mutation", "Gene_Promotor_NT_Substitution")
+                      "Aliases", "Resistant_Mechanism", "Gene_promotor_mutation", "Gene_Promotor_NT_Substitution",
+                      "Gene_Has_Multiple_Species_Entries", "Susceptibility_Method_for_evidence_associated_isolate")
   
   
   ft_3 <- rbind(t1_c, t2_c, t3_c, t4_c)
@@ -342,13 +355,13 @@ library(dplyr)
   t1$NCBI_Accession_Number_PubMed_link <- NA
   t1$Breakpoint_applied_for_MIC_of_evidence_associated_isolate <- NA
   t1$Additional_mutations_required_for_resistance <- NA
-  t1$Gene_has_multiple_GenBank_entries <- NA
+  
   
   t1_d <- t1 %>%
             select(original_table, row_num,
                    
                    `Specific Cephalosporin`, `Organism Group`, `Submission Type`,
-                   `Gene Has Multiple Species Entries?`, `MIC Interpretation for Clinical Isolate`, `Susceptibility Method for Transformant`,
+                   `MIC Interpretation for Clinical Isolate`,
                    `Hydrolysis Experiment Source (URL)`,
                    
                    "Alteration_needed_for_resistance", "Strain", "Clinical_or_lab_generated",
@@ -361,14 +374,13 @@ library(dplyr)
                    "Resistance_phenotype",
                    
                    "Nucleotide_Sequence", "NCBI_Accession_Number_Protein", "NCBI_Accession_Number_PubMed_link",
-                   "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance",
-                   "Gene_has_multiple_GenBank_entries"
+                   "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance"
                    
                    )
   colnames(t1_d) <- c("original_table", "row_num",
                       
                       "Specific_Cephalosporin", "Organism_Group", "Submission_Type",
-                      "Gene_Has_Multiple_Species_Entries", "MIC_Interpretation_for_Clinical_Isolate", "Susceptibility_Method_for_Transformant",
+                      "MIC_Interpretation_for_Clinical_Isolate",
                       "Hydrolysis_Experiment_Source_URL",
                       
                       "Alteration_needed_for_resistance", "Strain", "Clinical_or_lab_generated",
@@ -381,18 +393,14 @@ library(dplyr)
                       "Resistance_phenotype",
                       
                       "Nucleotide_Sequence", "NCBI_Accession_Number_Protein", "NCBI_Accession_Number_PubMed_link",
-                      "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance",
-                      "Gene_has_multiple_GenBank_entries"
-                      
+                      "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance"
   )
   
   
   t2$Specific_Cephalosporin <- NA
   t2$Organism_Group <- NA
   t2$Submission_Type <- NA
-  t2$Gene_Has_Multiple_Species_Entries <- NA
   t2$MIC_Interpretation_for_Clinical_Isolate <- NA
-  t2$Susceptibility_Method_for_Transformant <- NA
   t2$Hydrolysis_Experiment_Source_URL  <- NA
   
   t2$Resistance_phenotype <- NA
@@ -402,13 +410,12 @@ library(dplyr)
   t2$NCBI_Accession_Number_PubMed_link <- NA
   t2$Breakpoint_applied_for_MIC_of_evidence_associated_isolate <- NA
   t2$Additional_mutations_required_for_resistance <- NA
-  t2$Gene_has_multiple_GenBank_entries <- NA
   
   t2_d <- t2 %>%
             select(original_table, row_num,
                    
                    "Specific_Cephalosporin", "Organism_Group", "Submission_Type",
-                   "Gene_Has_Multiple_Species_Entries", "MIC_Interpretation_for_Clinical_Isolate", "Susceptibility_Method_for_Transformant",
+                   "MIC_Interpretation_for_Clinical_Isolate", 
                    "Hydrolysis_Experiment_Source_URL",
                    
                    `Alteration needed for resistance`, Strain, `Clinical or lab generated`,
@@ -420,13 +427,12 @@ library(dplyr)
                    "Resistance_phenotype",
                    
                    "Nucleotide_Sequence", "NCBI_Accession_Number_Protein", "NCBI_Accession_Number_PubMed_link",
-                   "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance",
-                   "Gene_has_multiple_GenBank_entries"
+                   "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance"
                    )
   colnames(t2_d) <- c("original_table", "row_num",
                       
                       "Specific_Cephalosporin", "Organism_Group", "Submission_Type",
-                      "Gene_Has_Multiple_Species_Entries", "MIC_Interpretation_for_Clinical_Isolate", "Susceptibility_Method_for_Transformant",
+                      "MIC_Interpretation_for_Clinical_Isolate", 
                       "Hydrolysis_Experiment_Source_URL",
                       
                       "Alteration_needed_for_resistance", "Strain", "Clinical_or_lab_generated",
@@ -439,17 +445,14 @@ library(dplyr)
                       "Resistance_phenotype",
                       
                       "Nucleotide_Sequence", "NCBI_Accession_Number_Protein", "NCBI_Accession_Number_PubMed_link",
-                      "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance",
-                      "Gene_has_multiple_GenBank_entries"
+                      "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance"
                       
   )
   
   t3$Specific_Cephalosporin <- NA
   t3$Organism_Group <- NA
   t3$Submission_Type <- NA
-  t3$Gene_Has_Multiple_Species_Entries <- NA
   t3$MIC_Interpretation_for_Clinical_Isolate <- NA
-  t3$Susceptibility_Method_for_Transformant <- NA
   t3$Hydrolysis_Experiment_Source_URL  <- NA
   
   t3$Alteration_needed_for_resistance <- NA
@@ -473,13 +476,13 @@ library(dplyr)
   t3$NCBI_Accession_Number_PubMed_link <- NA
   t3$Breakpoint_applied_for_MIC_of_evidence_associated_isolate <- NA
   t3$Additional_mutations_required_for_resistance <- NA
-  t3$Gene_has_multiple_GenBank_entries <- NA
+
   
   t3_d <- t3 %>%
             select(original_table, row_num,
                    
                    "Specific_Cephalosporin", "Organism_Group", "Submission_Type",
-                   "Gene_Has_Multiple_Species_Entries", "MIC_Interpretation_for_Clinical_Isolate", "Susceptibility_Method_for_Transformant",
+                   "MIC_Interpretation_for_Clinical_Isolate", 
                    "Hydrolysis_Experiment_Source_URL",
                    
                    "Alteration_needed_for_resistance", "Strain", "Clinical_or_lab_generated",
@@ -492,14 +495,13 @@ library(dplyr)
                    `Resistance phenotype`,
                    
                    "Nucleotide_Sequence", "NCBI_Accession_Number_Protein", "NCBI_Accession_Number_PubMed_link",
-                   "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance",
-                   "Gene_has_multiple_GenBank_entries"
+                   "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance"
                    
                    )
   colnames(t3_d) <- c("original_table", "row_num",
                       
                       "Specific_Cephalosporin", "Organism_Group", "Submission_Type",
-                      "Gene_Has_Multiple_Species_Entries", "MIC_Interpretation_for_Clinical_Isolate", "Susceptibility_Method_for_Transformant",
+                      "MIC_Interpretation_for_Clinical_Isolate", 
                       "Hydrolysis_Experiment_Source_URL",
                       
                       "Alteration_needed_for_resistance", "Strain", "Clinical_or_lab_generated",
@@ -512,8 +514,7 @@ library(dplyr)
                       "Resistance_phenotype",
                       
                       "Nucleotide_Sequence", "NCBI_Accession_Number_Protein", "NCBI_Accession_Number_PubMed_link",
-                      "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance",
-                      "Gene_has_multiple_GenBank_entries"
+                      "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance"
                       
   )
   
@@ -521,9 +522,7 @@ library(dplyr)
   t4$Specific_Cephalosporin <- NA
   t4$Organism_Group <- NA
   t4$Submission_Type <- NA
-  t4$Gene_Has_Multiple_Species_Entries <- NA
   t4$MIC_Interpretation_for_Clinical_Isolate <- NA
-  t4$Susceptibility_Method_for_Transformant <- NA
   t4$Hydrolysis_Experiment_Source_URL  <- NA
   
   t4$Alteration_needed_for_resistance <- NA
@@ -549,7 +548,7 @@ library(dplyr)
             select("original_table", "row_num",
                    
                    "Specific_Cephalosporin", "Organism_Group", "Submission_Type",
-                   "Gene_Has_Multiple_Species_Entries", "MIC_Interpretation_for_Clinical_Isolate", "Susceptibility_Method_for_Transformant",
+                   "MIC_Interpretation_for_Clinical_Isolate",
                    "Hydrolysis_Experiment_Source_URL",
                    
                    "Alteration_needed_for_resistance", "Strain", "Clinical_or_lab_generated",
@@ -562,13 +561,12 @@ library(dplyr)
                    "Resistance_phenotype",
                    
                    `Nucleotide Sequence`, `NCBI Accession Number - Protein`, `NCBI Accession Number- PubMed link`,
-                   `Breakpoint applied for MIC of evidence associated isolate`, `Additional mutations required for resistance?`,
-                   `Gene has multiple GenBank entries`
+                   `Breakpoint applied for MIC of evidence associated isolate`, `Additional mutations required for resistance?`
                    )
   colnames(t4_d) <- c("original_table", "row_num",
                       
                       "Specific_Cephalosporin", "Organism_Group", "Submission_Type",
-                      "Gene_Has_Multiple_Species_Entries", "MIC_Interpretation_for_Clinical_Isolate", "Susceptibility_Method_for_Transformant",
+                      "MIC_Interpretation_for_Clinical_Isolate", 
                       "Hydrolysis_Experiment_Source_URL",
                       
                       "Alteration_needed_for_resistance", "Strain", "Clinical_or_lab_generated",
@@ -581,8 +579,7 @@ library(dplyr)
                       "Resistance_phenotype",
                       
                        "Nucleotide_Sequence", "NCBI_Accession_Number_Protein", "NCBI_Accession_Number_PubMed_link",
-                       "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance",
-                       "Gene_has_multiple_GenBank_entries"
+                       "Breakpoint_applied_for_MIC_of_evidence_associated_isolate", "Additional_mutations_required_for_resistance"
                       
   )
   
@@ -594,18 +591,24 @@ library(dplyr)
 #join all four tables together
   final_table <- sqldf::sqldf("select a.*, b.NCBI_Accession_Number, b.Amino_Acid_Sequence, b.Accession_Number_Has_Linked_Publication,
                                         b.MIC_Value_for_Clinical_Isolate, b.Clinical_Evidence_Source_URL, b.Year_of_Clinical_Publication,
-                                        b.Summary_of_Evidence, b.Comments, b.Gene_Function,
+                                        b.Summary_of_Evidence, b.Comments, b.Gene_Function, b.Susceptibility_Method_for_Clinical_Isolates,
+                                        
                                         c.NCBI_Accession_Number_Species, 
                                         c.NCBI_Submitted_Sequence_Isolate_Source, c.NCBI_Submitted_Sequence_Isolate_ID_Method, c.Geographic_Location_of_Submitted_Sequence_Isolate,
                                         c.Clinical_Evidence_in_over_10_Isolates, c.Clinical_Evidence_Is_Affiliated_with_Accession_Number, c.Breakpoint_Organization,
-                                        c.Susceptibility_Method_for_Clinical_Isolates, c.Transformation_Experiment_Performed, c.Transformation_Is_Affiliated_with_Accession_Number,
+                                        c.Transformation_Experiment_Performed, c.Transformation_Is_Affiliated_with_Accession_Number,
                                         c.Transformation_Experiment_Source_URL, c.Transformant_Species, c.MIC_Value_for_Transformant,
                                         c.Fold_Change_in_Transformant, c.MIC_Interpretation_for_Tranformant, c.Hydrolysis_Is_Associated_with_Accession_Number,
-                                        c.Hydrolysis_Results, c.Method_for_MIC_Values, c.Mutation, 
+                                        
+                                        c.Hydrolysis_Results, c.Mutation, 
                                         c.Type_of_Genetic_Marker, c.Additional_Information, c.SCCmec_Element,
-                                        c.Aliases, c.Resistant_Mechanism,
+                                        c.Aliases, c.Resistant_Mechanism, 
+                                        c.Gene_Promotor_NT_Substitution, c.Gene_promotor_mutation,
+                                        c.Gene_Has_Multiple_Species_Entries,
+                                        c.Susceptibility_Method_for_evidence_associated_isolate,
+                                        
                                         d.Specific_Cephalosporin, d.Organism_Group, d.Submission_Type,
-                                        d.Gene_Has_Multiple_Species_Entries, d.MIC_Interpretation_for_Clinical_Isolate, d.Susceptibility_Method_for_Transformant,
+                                        d.MIC_Interpretation_for_Clinical_Isolate,
                                         d.Hydrolysis_Experiment_Source_URL,
                                         d.Alteration_needed_for_resistance, d.Strain, d.Clinical_or_lab_generated,
                                         d.Number_of_mutations_in_gene, d.Single_mutation_known_to_cause_resistance,
@@ -615,8 +618,7 @@ library(dplyr)
                                         d.Downstream_Effect,
                                         d.Resistance_phenotype,
                                         d.Nucleotide_Sequence, d.NCBI_Accession_Number_Protein, d.NCBI_Accession_Number_PubMed_link,
-                                        d.Breakpoint_applied_for_MIC_of_evidence_associated_isolate, d.Additional_mutations_required_for_resistance,
-                                        d.Gene_has_multiple_GenBank_entries
+                                        d.Breakpoint_applied_for_MIC_of_evidence_associated_isolate, d.Additional_mutations_required_for_resistance
                                from ft as a
                                left join ft_2 as b on a.original_table = b.original_table and
                                                         a.row_num = b.row_num
